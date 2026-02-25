@@ -384,4 +384,3 @@ Inspired by Blackmagic Fusion's Wireless Link nodes.
 **Last Updated**: 2024
 **Compatibility**: ComfyUI (all versions)
 #   c o m f y u i - w i r e l e s s - l i n k - s i m p l e  
- 
