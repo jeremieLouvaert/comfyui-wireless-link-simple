@@ -1,0 +1,13 @@
+[project]
+name = "comfyui-wireless-link-simple"
+description = "Simple wireless data transmission nodes for ComfyUI — send any data type without visible wires"
+version = "1.0.0"
+license = { file = "LICENSE" }
+
+[project.urls]
+Repository = "https://github.com/jeremieLouvaert/comfyui-wireless-link-simple"
+
+[tool.comfy]
+PublisherId = "jeremieLouvaert"
+DisplayName = "ComfyUI Wireless Link Simple"
+Icon = ""
