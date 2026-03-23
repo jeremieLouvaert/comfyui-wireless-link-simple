@@ -8,6 +8,6 @@ license = { file = "LICENSE" }
 Repository = "https://github.com/jeremieLouvaert/comfyui-wireless-link-simple"
 
 [tool.comfy]
-PublisherId = "jeremieLouvaert"
+PublisherId = "akurate"
 DisplayName = "ComfyUI Wireless Link Simple"
 Icon = ""
