@@ -85,6 +85,7 @@ class WirelessSend:
         return {
             "required": {
                 "value": (any_type, {
+                    "forceInput": True,
                     "tooltip": "Any data to send wirelessly (IMAGE, MODEL, LATENT, CLIP, VAE, STRING, etc.)",
                 }),
                 "channel": ("STRING", {
