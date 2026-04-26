@@ -70,6 +70,21 @@ Works with every ComfyUI data type: IMAGE, MODEL, LATENT, VAE, CLIP, CONDITIONIN
 [Get: "base_image"] -> [Process C]
 ```
 
+### Automated channel name with `<auto>`
+
+Use `<auto>` on the Get node's channel field when the Send node's channel is itself wired from a dynamic source — e.g. a Hash Vault label, a photographer style, a prompt-derived string. Get resolves to whatever channel was most recently written by a Send in the current execution, with no need to mirror the wire on Get.
+
+```
+[Hash Vault Label Builder] -> channel of [Send] -> [Preview]
+                                             "Alec Soth / Niagara / full"
+
+[Get: "<auto>"] -> [Process]    ← resolves to "Alec Soth / Niagara / full" automatically
+```
+
+Requires Send to fire before Get in execution order — chain through Send's passthrough output, or place Send earlier structurally. If Get fires before Send in the current run, `<auto>` resolves to the most recent prior Send and prints a stale-data warning to the console (cue to fix the topology). The Get node only errors out if no Wireless Send has ever fired this ComfyUI session.
+
+For workflows with multiple Sends, `<auto>` always resolves to the most recent one. If you need to disambiguate, use literal channel names instead.
+
 ## Important
 
 **Connect the passthrough.** The Send node's passthrough output should be connected to a downstream node (Preview, Save, another node). This guarantees Send executes before Get. Without it, Send still runs (it's marked as an output node) but execution order isn't guaranteed.
