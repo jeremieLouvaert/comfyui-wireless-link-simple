@@ -1,12 +1,12 @@
 # ComfyUI Wireless Link (Simple)
 
-Wireless data transfer between nodes — no visible wires. Inspired by Blackmagic Fusion's Wireless Link.
+Wireless data transfer between nodes, no visible wires. Inspired by Blackmagic Fusion's Wireless Link.
 
-## What It Does
+## What it does
 
 Two nodes. **Send** stores any data to a named channel. **Get** retrieves it. No wires needed between them.
 
-Works with every ComfyUI data type: IMAGE, MODEL, LATENT, VAE, CLIP, CONDITIONING, STRING, INT, FLOAT — anything.
+Works with every ComfyUI data type: IMAGE, MODEL, LATENT, VAE, CLIP, CONDITIONING, STRING, INT, FLOAT, anything.
 
 ## Nodes
 
@@ -33,7 +33,7 @@ Works with every ComfyUI data type: IMAGE, MODEL, LATENT, VAE, CLIP, CONDITIONIN
 
 ## Usage
 
-### Basic: Image Transfer
+### Basic: image transfer
 
 ```
 [Load Image] -> [Wireless Send] -> [Preview Image]
@@ -45,7 +45,7 @@ Works with every ComfyUI data type: IMAGE, MODEL, LATENT, VAE, CLIP, CONDITIONIN
   channel: "photo"
 ```
 
-### Model Sharing
+### Model sharing
 
 ```
 [Load Checkpoint]
@@ -60,7 +60,7 @@ Works with every ComfyUI data type: IMAGE, MODEL, LATENT, VAE, CLIP, CONDITIONIN
 [Get: "vae"]   -> [VAE Decode]
 ```
 
-### One Send, Many Gets
+### One Send, many Gets
 
 ```
 [Send: "base_image"] -> [Preview]
@@ -72,7 +72,7 @@ Works with every ComfyUI data type: IMAGE, MODEL, LATENT, VAE, CLIP, CONDITIONIN
 
 ### Automated channel name with `<auto>`
 
-Use `<auto>` on the Get node's channel field when the Send node's channel is itself wired from a dynamic source — e.g. a Hash Vault label, a photographer style, a prompt-derived string. Get resolves to whatever channel was most recently written by a Send in the current execution, with no need to mirror the wire on Get.
+Use `<auto>` on the Get node's channel field when the Send node's channel is itself wired from a dynamic source: a Hash Vault label, a photographer style, a prompt-derived string. Get resolves to whatever channel was most recently written by a Send in the current execution, so you don't have to mirror the wire on Get.
 
 ```
 [Hash Vault Label Builder] -> channel of [Send] -> [Preview]
@@ -81,7 +81,7 @@ Use `<auto>` on the Get node's channel field when the Send node's channel is its
 [Get: "<auto>"] -> [Process]    ← resolves to "Alec Soth / Niagara / full" automatically
 ```
 
-Requires Send to fire before Get in execution order — chain through Send's passthrough output, or place Send earlier structurally. If Get fires before Send in the current run, `<auto>` resolves to the most recent prior Send and prints a stale-data warning to the console (cue to fix the topology). The Get node only errors out if no Wireless Send has ever fired this ComfyUI session.
+Requires Send to fire before Get in execution order. Chain through Send's passthrough output, or place Send earlier structurally. If Get fires before Send in the current run, `<auto>` resolves to the most recent prior Send and prints a stale-data warning to the console (a cue to fix the topology). The Get node only errors out if no Wireless Send has ever fired this ComfyUI session.
 
 For workflows with multiple Sends, `<auto>` always resolves to the most recent one. If you need to disambiguate, use literal channel names instead.
 
@@ -91,7 +91,7 @@ For workflows with multiple Sends, `<auto>` always resolves to the most recent o
 
 **Channel names are case-sensitive.** "MyImage" and "myimage" are different channels.
 
-**Data persists in memory** during a ComfyUI session. Restarting ComfyUI clears all channels. Stale data from previous runs is detected and warned about in the console.
+**Data persists in memory** during a ComfyUI session. Restarting ComfyUI clears all channels. Stale data from previous runs is detected and flagged in the console.
 
 ## Installation
 
@@ -102,13 +102,13 @@ git clone https://github.com/jeremieLouvaert/comfyui-wireless-link-simple.git
 
 Restart ComfyUI. Nodes appear under the **wireless** category.
 
-No additional dependencies required.
+No additional dependencies.
 
 ## Troubleshooting
 
-**"Channel not found" error** — The Send node didn't execute before Get. Connect the Send node's passthrough output to any downstream node.
+**"Channel not found" error.** The Send node didn't execute before Get. Connect the Send node's passthrough output to any downstream node.
 
-**Stale data warning in console** — A channel contains data from a previous execution. Check that the Send node is still in your workflow and connected.
+**Stale data warning in console.** A channel contains data from a previous execution. Check that the Send node is still in your workflow and connected.
 
 ## License
 
